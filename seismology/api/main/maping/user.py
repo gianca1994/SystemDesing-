@@ -3,7 +3,6 @@ from marshmallow_sqlalchemy import SqlAS, Automaticfield
 from main.models import UserModel
 
 class User(SqlAS):
-
     class Meta:
         model = UserModel
         ordered = True

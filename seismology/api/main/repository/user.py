@@ -27,14 +27,14 @@ class User(DataBaseRepository):
 
     def allget(self):
         page = 1
-        perpage = 100
-        userlist = self.get_query()
+        perpage = 50
+        userlist = self.query()
         pagine = control_page(page, perpage, userlist)
 
-        for key, value in self.jsonImport:
-            users = page.apply(key, value)
-        users, pagination = pagine.pagination()
-        return UserSSchema.dump(users.all())
+        for key, val in self.jsonImport:
+            users = page.apply(key, val)
+            users, pagination = pagine.pagination()
+            return UserSSchema.dump(users.all())
 
     def get(self):
         user = db.session.query(UserModel).get(self.id)
@@ -65,8 +65,8 @@ class User(DataBaseRepository):
 
     def edit(self):
         if self.instance is not None:
-            for key, values in self.jsonImport:
-                setattr(self.instance, key, values)
+            for key, val in self.jsonImport:
+                setattr(self.instance, key, val)
             return self.add()
 
     def delete(self):

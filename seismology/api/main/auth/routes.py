@@ -8,7 +8,6 @@ auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 @auth.route('/login', methods=['POST'])
 def login():
-    # Validamos si hay un email duplicado y alojamos en la variable user. Si hay un duplicado nos da error 404.
     user = db.session.query(UserModel).filter(UserModel.email == request.get_json().get('email')).first_or_404()
 
     if user.validate_pass(request.get_json().get('password')):
